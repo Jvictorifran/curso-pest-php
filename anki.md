@@ -139,3 +139,29 @@ O `.bak` é só resíduo: pode ser apagado depois de conferir o resultado.
 Tags: #php #phpunit #laravel::testes
 Fonte: https://docs.phpunit.de/en/10.5/configuration.html
 <!-- anki-id: phpunit-migrate-configuration-bak -->
+
+---
+
+## Em testes HTTP do Laravel, o que acontece ao passar `postJson('auth.login', ...)` em vez de `postJson(route('auth.login'), ...)`?
+
+O primeiro argumento é uma **URI**, não um nome de rota. `'auth.login'` vira o
+caminho `/auth.login`, que não casa com nenhuma rota: a resposta é 404 e o
+controller nunca roda. Assertions de validação falham com "Response does not
+have JSON validation errors". Use sempre `route('nome')` para resolver o nome.
+
+Tags: #laravel #laravel::testes #laravel::routing
+Fonte: https://laravel.com/docs/10.x/http-tests#making-requests
+<!-- anki-id: laravel-testes-postjson-uri-vs-route -->
+
+---
+
+## O que `trans()` / `__()` retornam quando a chave de tradução não existe?
+
+A própria chave, como string. `trans('validation.requiride')` devolve
+`"validation.requiride"` em vez de lançar erro — por isso um typo em teste vira
+uma comparação silenciosamente errada. A chave correta é `validation.required`,
+cuja mensagem é `The :attribute field is required.`
+
+Tags: #laravel #laravel::localization #laravel::validation
+Fonte: https://laravel.com/docs/10.x/localization#retrieving-translation-strings
+<!-- anki-id: laravel-trans-chave-inexistente -->
