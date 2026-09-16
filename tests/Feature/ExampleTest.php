@@ -2,4 +2,6 @@
 
 use function Pest\Laravel\getJson;
 
-it('should return status code 200', fn () => getJson('/')->assertOk());
+it('should return status code 200', function(){
+   getJson('/',)->assertOk();
+});
